@@ -1,6 +1,6 @@
 # Chat-E
 
-Chat-E is a full stack, real-time chat application using Socket.io for real time communication and stores user details in encrypted format in a [MongoDB](https://www.mongodb.com) database.
+Chat-E is a full stack, real-time chat application using [Socket.io](https://socket.io) for real time communication and stores user details in encrypted format in a [MongoDB](https://www.mongodb.com) database.
 
 **Disclaimer**: This repository was optimized for deployment. To see the entire commit history visit [https://github.com/PaulBueckhard/Full-Stack-Chat-App](https://github.com/PaulBueckhard/Full-Stack-Chat-App)
 
@@ -14,11 +14,11 @@ For a more in-depth documentation on the **backend** visit [backend](https://git
 
 ## Tech stack
 
-**Client**: ReactJS
+**Client**: [ReactJS](https://react.dev)
 
-**Server**: ExpressJS, NodeJS
+**Server**: [ExpressJS](https://expressjs.com), [NodeJS](https://nodejs.org/en)
 
-**Database**: MongoDB
+**Database**: [MongoDB](https://www.mongodb.com)
 
 ## Setup
 
@@ -40,7 +40,7 @@ Start the app
 
     npm start
 
-Go to `frontend/src/components/SingleChat.js` and change the `ENDPOINT` URL to “http://localhost:5000”. You should now be able to access Chat-E in your browser at “localhost:5000”.
+Go to `frontend/src/components/SingleChat.js` and change the `ENDPOINT` URL to “http://localhost:5000”. You should now be able to access Chat-E in your browser at “http://localhost:5000”.
 
 ---
 
