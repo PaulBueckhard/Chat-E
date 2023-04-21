@@ -20,6 +20,8 @@ For a more in-depth documentation on the **backend** visit the [backend](https:/
 
 **Database**: [MongoDB](https://www.mongodb.com)
 
+**Hosting**: [Render](https://render.com)
+
 ## Setup
 
 Go to [https://chat-e.onrender.com](https://chat-e.onrender.com) to see the app running live. Sign up with a new account and start chatting.
