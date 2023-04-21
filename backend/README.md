@@ -34,8 +34,8 @@ The backend is this project's server, handling all API requests using [ExpressJS
 
 ### Middleware
 
-- **Authorization middleware** is responsable for protecting certain API requests based on the user's authorization and authentication using their JSON Web Token
-- **Error middleware** is responsable for handling all failed API requests
+- **Authorization middleware** is responsible for protecting certain API requests based on the user's authorization and authentication using their JSON Web Token
+- **Error middleware** is responsible for handling all failed API requests
 
 ### Configuration
 
