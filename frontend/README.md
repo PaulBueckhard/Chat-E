@@ -1,70 +1,76 @@
-# Getting Started with Create React App
+# Chat-E frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This document describes the structure of this project's frontend, its components and intentions.
 
-## Available Scripts
+For a more general documentation of the **project** visit the [root](https://github.com/PaulBueckhard/Chat-E).
 
-In the project directory, you can run:
+For a more in-depth documentation on the **backend** visit the [backend](https://github.com/PaulBueckhard/Chat-E/tree/master/backend).
 
-### `npm start`
+## Architecture
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+![architecture](../diagrams/architecture.png)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Functionality
 
-### `npm test`
+The frontend serves as this project's client, interpreting and displaying the server's data to the user using [ReactJS](https://legacy.reactjs.org) and improving user experience using [Chakra UI](https://chakra-ui.com). It consists of:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Pages
 
-### `npm run build`
+Files that are responsible for the general rendering of the homepage and chatpage
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Components
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Sign up** handles the rendering of the sign up tab and whether given data is valid and complete
+- **Login** handles the rendering of the login tab and whether given data is complete
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+---
 
-### `npm run eject`
+- **Single chat** renders the chat interface for a single chat session where users can type and send messages. It provides real-time message updates and typing indicators
+- **Scrollable chat** provides a scrollable container for all messages and provides them with the profile picture of their user
+- **My chats** renders the left-hand box where all of the user's available chats are provided with the **chat boxes**
+- **Chatbox** renders the reusable, selectable chatboxes that are available to the user in **my chats**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Side drawer** renders the bar on top of the page with the current user's profile and the option to log out and the tab to search for users displaying the **user list items**
+- **Profile modal** renders the reusable user's information tab. The name, e-mail and profile picture are provided
+- **Group chat modal** renders and handles the tab to create a new group chat
+- **Update group chat modal** renders the reusable tab with the group chat information. It also handles sending API requests about removing and adding people to a group and renaming the chat
+- **Chat loading** renders a loading animation when searching for users
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **User list item** renders the reusable user box when users are searched for
+- **User badge item** renders the reusable user badge in the group chat info tab
 
-## Learn More
+### Context
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+The chatcontext provider serves as a component wrap to provide the ability to access state information. It declares the different state variables of the user, selected chat and all chats by accessing the current browser history from their browser's local storage. With the user info it decides whether users are instantly directed to the chatpage or homepage.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Chat logic
 
-### Code Splitting
+- **Get sender** indicates which user in the chat sent the message
+- **Get sender full** is the same as **get sender** but returns the full user object instead
+- **Is same sender** indicates whether the current message and next message were from the same user
+- **Is last message** indicates whether the current message is the last in the chat and whether it was sent by the current user
+- **Is same sender margin** handles the positioning of every message based on what user sent it
+- **Is same user** indicates whether the current message has the same sender as the previous message
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## Rendering
 
-### Analyzing the Bundle Size
+In production mode the frontend is rendered using `npm run build` to generate a production-ready bundle that can be deployed to the server. It generates static assets that can be served to users when they visit the website, resulting in faster load times.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Reasoning
 
-### Making a Progressive Web App
+I used ReactJS for this application because of the ability to create reusable components easily and the usage of virtual DOM. The virtual DOM enables a representation of the UI that is kept in memory and synced with the actual DOM to reduce loading times.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+React came with Chakra UI which made it easy to use pre-built and pre-designed components for better looking and more efficient functionality visualisation. It was easier to make the app more accessable by making it more responsive and intuitive.
 
-### Advanced Configuration
+My general UI and colour-palette choices were a dark theme with orange accents. The main purpose was to give the app a warm and comfortable feeling while keeping it simple and functional.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## Request flow
 
-### Deployment
+![request](../diagrams/request.png)
+When the user makes a request on the client to e.g. access their chats, the frontend sends this request to the web framework, which interprets the request and redirects it to the webserver. The webserver makes a query to the database to receive every chat.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The database compiles the query and sends the data back to the webserver, which redirects it to the web framework, which then sends it to the frontend in the form of JSON data. The frontend interprets the data and displays it to the user.

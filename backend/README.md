@@ -45,6 +45,14 @@ The configuration generates the JSON Web Token for each user and enables the con
 
 To ensure the user's security all generated tokens consist of a variable that is stored in an inaccessible secret environment. Additionally, every password that is submitted by a user is encrypted using [bcrypt](https://www.npmjs.com/package/bcryptjs) before being stored in the database.
 
+## Reasoning
+
+I used NodeJS as my web server because of its ability to develop real time systems, its scalablity and the **n**ode **p**ackage **m**anager (npm) providing a large library of packages.
+
+I used ExpressJS as my web framework for the easy to use and powerful API routing functionalities that were well documented.
+
+I used MongoDB as my database since it is cross platform, NoSQL and document-oriented. It is permanently online and maintained and highly scalable with a flexible schema.
+
 ## Request flow
 
 ![request](../diagrams/request.png)
