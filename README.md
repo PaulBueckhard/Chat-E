@@ -10,7 +10,7 @@ This document describes the general structure of this project, how to set it up,
 
 For a more in-depth documentation on the **frontend** visit the [frontend](https://github.com/PaulBueckhard/Chat-E/tree/master/frontend).
 
-For a more in-depth documentation on the **backend** visit [backend](https://github.com/PaulBueckhard/Chat-E/tree/master/backend).
+For a more in-depth documentation on the **backend** visit the [backend](https://github.com/PaulBueckhard/Chat-E/tree/master/backend).
 
 ## Tech stack
 
