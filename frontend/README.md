@@ -60,6 +60,10 @@ The chatcontext provider serves as a component wrap to provide the ability to ac
 
 In production mode the frontend is rendered using `npm run build` to generate a production-ready bundle that can be deployed to the server. It generates static assets that can be served to users when they visit the website, resulting in faster load times.
 
+## Security
+
+To ensure the user's security all generated tokens consist of a variable that is stored in an inaccessible secret environment. Additionally, every password that is submitted by a user is encrypted using [bcrypt](https://www.npmjs.com/package/bcryptjs) before being stored in the database.
+
 ## Reasoning
 
 I used ReactJS for this application because of the ability to create reusable components easily and the usage of virtual DOM. The virtual DOM enables a representation of the UI that is kept in memory and synced with the actual DOM to reduce loading times.
