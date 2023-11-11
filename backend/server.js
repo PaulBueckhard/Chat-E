@@ -54,7 +54,23 @@ const limiter = rateLimit({
 
 app.use(limiter);
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+        scriptSrc: ["'self'", "'unsafe-inline'", 'https://apis.google.com'],
+        styleSrc: ["'self'", 'https://fonts.googleapis.com'],
+        imgSrc: ["'self'", 'data:', 'https://*.cdn.com'],
+        connectSrc: ["'self'", 'https://api.chat-e.com'],
+        fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+        objectSrc: ["'none'"],
+        upgradeInsecureRequests: []
+      },
+      reportOnly: false,
+    },
+  })
+);
 
 const PORT = process.env.PORT || 5000;
 
