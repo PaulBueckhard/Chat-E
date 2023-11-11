@@ -8,6 +8,7 @@ const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
 const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 
 dotenv.config();
 
@@ -52,6 +53,8 @@ const limiter = rateLimit({
 })
 
 app.use(limiter);
+
+app.use(helmet());
 
 const PORT = process.env.PORT || 5000;
 
