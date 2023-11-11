@@ -6,11 +6,18 @@ const { body, validationResult } = require('express-validator');
 const router = express.Router();
 
 router.route("/").get(protect, allUsers);
-router.route("/").post(registerUser);
+router.post("/",
+    [
+        body('name').not().isEmpty().trim().escape(),
+        body('email').isEmail().normalizeEmail(),
+        body('password').isLength({ min: 6 })
+    ],
+    registerUser
+);
 router.post("/login",
     [
         body('email').isEmail().normalizeEmail(),
-        body('password').isLength({ min: 5 })
+        body('password').isLength({ min: 6 })
     ],
     authUser
 );

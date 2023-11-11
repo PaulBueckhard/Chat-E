@@ -18,6 +18,11 @@ const allUsers = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    throw new Error("Please use a valid email and choose a secure password");
+  }
+
   const { name, email, password, pic } = req.body;
 
   if (!name || !email || !password) {
@@ -57,7 +62,7 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    throw new Error("Invalid e-mail or password");
   }
 
   const { email, password } = req.body;
