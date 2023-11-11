@@ -7,6 +7,7 @@ const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
+const rateLimit = require("express-rate-limit");
 
 dotenv.config();
 
@@ -42,6 +43,15 @@ app.use((req, res, next) => {
   }
   next();
 });
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  limit: 100,
+  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
+  legacyHeaders: false,
+})
+
+app.use(limiter);
 
 const PORT = process.env.PORT || 5000;
 
