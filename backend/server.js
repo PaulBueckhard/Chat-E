@@ -57,22 +57,10 @@ app.use(limiter);
 
 app.use(helmet());
 
-app.use(
-  contentSecurityPolicy({
-    useDefaults: true,
-    directives: {
-      defaultSrc: ["'self'"],
-      scriptSrc: ["'self'", "'unsafe-inline'", 'https://apis.google.com'],
-      styleSrc: ["'self'", 'https://fonts.googleapis.com'],
-      imgSrc: ["'self'", 'data:', 'https://*.cdn.com'],
-      connectSrc: ["'self'", 'https://api.chat-e.com'],
-      fontSrc: ["'self'", 'https://fonts.gstatic.com'],
-      objectSrc: ["'none'"],
-      upgradeInsecureRequests: []
-    },
-    reportOnly: false,
-  })
-);
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none';");
+  next();
+});
 
 const PORT = process.env.PORT || 5000;
 
