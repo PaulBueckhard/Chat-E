@@ -18,6 +18,13 @@ const app = express();
 
 app.use(express.json());
 
+app.use(helmet());
+
+app.use((req, res, next) => {
+  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none';");
+  next();
+});
+
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
 app.use('/api/message', messageRoutes);
@@ -54,13 +61,6 @@ const limiter = rateLimit({
 })
 
 app.use(limiter);
-
-app.use(helmet());
-
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none';");
-  next();
-});
 
 const PORT = process.env.PORT || 5000;
 
