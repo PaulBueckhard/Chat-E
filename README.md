@@ -45,6 +45,13 @@ Install all dependencies
     cd frontend/
     npm install
 
+Go to `frontend/src/components/SingleChat.js` and change the `ENDPOINT` URL to “http://localhost:5000”. Create a new .env file in the root directory and include the following:
+
+    PORT=5000
+    MONGO_URI=<Your MongoDB URI>
+    JWT_SECRET=<Your JWT secret>
+    NODE_ENV=development
+
 Start the server
 
     npm start
@@ -54,13 +61,6 @@ Start the client
     //open new terminal
     cd frontend/
     npm start
-
-Go to `frontend/src/components/SingleChat.js` and change the `ENDPOINT` URL to “http://localhost:5000”. Create a new .env file in the root directory and include the following:
-
-    PORT=5000
-    MONGO_URI=<Your MongoDB URI>
-    JWT_SECRET=<Your JWT secret>
-    NODE_ENV=development
 
 You should now be able to access Chat-E in your browser at “http://localhost:3000”.
 
