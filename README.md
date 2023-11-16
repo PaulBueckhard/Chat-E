@@ -62,7 +62,7 @@ Go to `frontend/src/components/SingleChat.js` and change the `ENDPOINT` URL to �
     JWT_SECRET=<Your JWT secret>
     NODE_ENV=development
 
-You should now be able to access Chat-E in your browser at “http://localhost:5000”.
+You should now be able to access Chat-E in your browser at “http://localhost:3000”.
 
 ---
 
