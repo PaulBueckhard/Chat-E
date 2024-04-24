@@ -7,9 +7,8 @@ const chatRoutes = require("./routes/chatRoutes");
 const messageRoutes = require("./routes/messageRoutes");
 const { notFound, errorHandler } = require("./middleware/errorMiddleware");
 const path = require("path");
-const rateLimit = require("express-rate-limit");
+const rateLimit = require('express-rate-limit');
 const helmet = require("helmet");
-const contentSecurityPolicy = require("helmet-csp");
 
 dotenv.config();
 
@@ -18,12 +17,10 @@ const app = express();
 
 app.use(express.json());
 
-app.use(helmet());
-
-app.use((req, res, next) => {
-  res.setHeader("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; img-src 'self'; font-src 'self' https://fonts.gstatic.com; connect-src 'self'; object-src 'none';");
-  next();
-});
+app.use(helmet({
+  contentSecurityPolicy: false,
+  xDownloadOptions: false,
+}));
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
@@ -43,24 +40,23 @@ if (process.env.NODE_ENV === "production") {
   });
 }
 
+const limiter = rateLimit({
+	windowMs: 15 * 60 * 1000,
+	limit: 100,
+	standardHeaders: 'draft-7',
+	legacyHeaders: false,
+	message: "Too many requests from this IP, please try again after 15 minutes."
+});
+
 app.use(notFound);
 app.use(errorHandler);
-
+app.use(limiter);
 app.use((req, res, next) => {
   if (process.env.NODE_ENV === 'production' && req.headers['x-forwarded-proto'] !== 'https') {
     return res.redirect('https://' + req.headers.host + req.req.url);
   }
   next();
 });
-
-const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  limit: 100,
-  standardHeaders: 'draft-7', // draft-6: `RateLimit-*` headers; draft-7: combined `RateLimit` header
-  legacyHeaders: false,
-})
-
-app.use(limiter);
 
 const PORT = process.env.PORT || 5000;
 

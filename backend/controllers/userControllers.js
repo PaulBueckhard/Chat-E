@@ -1,16 +1,16 @@
 const asyncHandler = require("express-async-handler");
 const User = require("../models/userModel");
 const generateToken = require("../config/generateToken");
-const { body, validationResult } = require('express-validator');
+const validator = require("validator");
 
 const allUsers = asyncHandler(async (req, res) => {
   const keyword = req.query.search
     ? {
-      $or: [
-        { name: { $regex: req.query.search, $options: "i" } },
-        { email: { $regex: req.query.search, $options: "i" } },
-      ],
-    }
+        $or: [
+          { name: { $regex: req.query.search, $options: "i" } },
+          { email: { $regex: req.query.search, $options: "i" } },
+        ],
+      }
     : {};
 
   const users = await User.find(keyword).find({ _id: { $ne: req.user._id } });
@@ -18,16 +18,18 @@ const allUsers = asyncHandler(async (req, res) => {
 });
 
 const registerUser = asyncHandler(async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new Error("Please use a valid email and choose a secure password");
-  }
-
   const { name, email, password, pic } = req.body;
 
   if (!name || !email || !password) {
     res.status(400);
     throw new Error("Please enter all fields");
+  }
+
+  if (!validator.isStrongPassword(password, {
+    minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1
+  })) {
+    res.status(400);
+    throw new Error("Password requires at least 1 lowercase letter, 1 uppercase letter, 1 number and 1 symbol.");
   }
 
   const userExists = await User.findOne({ email });
@@ -60,11 +62,6 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 
 const authUser = asyncHandler(async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    throw new Error("Invalid e-mail or password");
-  }
-
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
