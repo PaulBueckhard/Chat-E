@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 
-app.use(helmet);
+app.use(helmet());
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
