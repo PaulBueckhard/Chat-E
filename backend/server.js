@@ -17,10 +17,10 @@ const app = express();
 
 app.use(express.json());
 
-app.use(helmet({
-  contentSecurityPolicy: false,
-  xDownloadOptions: false,
-}));
+// app.use(helmet({
+//   contentSecurityPolicy: false,
+//   xDownloadOptions: false,
+// }));
 
 app.use('/api/user', userRoutes);
 app.use('/api/chat', chatRoutes);
