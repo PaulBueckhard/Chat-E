@@ -43,7 +43,20 @@ The configuration generates the JSON Web Token for each user and enables the con
 
 ## Security
 
-To ensure the user's security all generated tokens consist of a variable that is stored in an inaccessible secret environment. Additionally, every password that is submitted by a user is encrypted using [bcrypt](https://www.npmjs.com/package/bcryptjs) before being stored in the database.
+Implemented security measures include:
+
+ - JWT authorization
+ - Authentication middleware
+ - Password encryption
+ - Password strength validation
+ - Input validation
+ - Input sanitization
+ - Secure database connection
+ - IP dependant database access
+ - Error handling
+ - HTTP headers
+ - Rate limiting
+ - Redirecting HTTP to HTTPS
 
 ## Reasoning
 
